@@ -1,0 +1,4 @@
+_key,zh-tw,en,_note
+SelectLang,繁體中文,English,"# select language"
+Login,登入,Login,"used for login button"
+Hello,"您好,歡迎","Hello,Welcome","pop up greeting message"
