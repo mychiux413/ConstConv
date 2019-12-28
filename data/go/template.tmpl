@@ -1,0 +1,25 @@
+package {{ package_name }}
+
+type LangData struct {
+{{ lang_data_contents }}
+}
+
+type LangCode = string
+
+var table = make(map[LangCode]LangData)
+
+const (
+{{ lang_code_contents }}
+)
+
+func init() {
+{{ init_contents }}
+}
+
+func NewMultiLangs(langCode LangCode) LangData {
+	return table[langCode]
+}
+
+func (l *LangData) SetLang(langCode LangCode) {
+	*l = table[langCode]
+}
