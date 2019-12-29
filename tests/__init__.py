@@ -1,14 +1,39 @@
-CSV_FILE = "data/valid_format.csv"
-GO_OUTPUT = "tests/go/generated.go"
-GO_EXPECT_FILE = "data/go/expect.go"
-PYTHON_OUTPUT = "tests/python/generated.py"
-PYTHON_EXPECT_FILE = "data/python/expect.py"
-PYTHON_TYPING_OUTPUT = "tests/python/generated_typing.py"
-PYTHON_EXPECT_TYPING_FILE = "data/python/expect_typing.py"
-TYPESCRIPT_OUTPUT = "tests/typescript/generated.ts"
-TYPESCRIPT_EXPECT_FILE = "data/typescript/expect.ts"
-JAVASCRIPT_OUTPUT = "tests/javascript/generated.js"
-JAVASCRIPT_EXPECT_FILE = "data/javascript/expect.js"
+import os
+
+ROOT_DIR = os.path.abspath(os.curdir)
+CSV_FILE = os.path.join(ROOT_DIR, "data/valid_format.csv")
+GO_OUTPUT = os.path.join(ROOT_DIR, "tests/go/generated.go")
+GO_EXPECT_FILE = os.path.join(ROOT_DIR, "data/go/expect.go")
+PYTHON_OUTPUT = os.path.join(ROOT_DIR, "tests/python/generated.py")
+PYTHON_EXPECT_FILE = os.path.join(ROOT_DIR, "data/python/expect.py")
+PYTHON_TYPING_OUTPUT = os.path.join(
+    ROOT_DIR, "tests/python/generated_typing.py")
+PYTHON_EXPECT_TYPING_FILE = os.path.join(
+    ROOT_DIR, "data/python/expect_typing.py")
+TYPESCRIPT_FRONTEND_OUTPUT = os.path.join(
+    ROOT_DIR,
+    "tests/typescript/generated_frontend.ts")
+TYPESCRIPT_FRONTEND_EXPECT_FILE = os.path.join(
+    ROOT_DIR,
+    "data/typescript/expect_frontend.ts")
+JAVASCRIPT_FRONTEND_OUTPUT = os.path.join(
+    ROOT_DIR,
+    "tests/javascript/generated_frontend.js")
+JAVASCRIPT_FRONTEND_EXPECT_FILE = os.path.join(
+    ROOT_DIR,
+    "data/javascript/expect_frontend.js")
+TYPESCRIPT_BACKEND_OUTPUT = os.path.join(
+    ROOT_DIR,
+    "tests/typescript/generated_backend.ts")
+TYPESCRIPT_BACKEND_EXPECT_FILE = os.path.join(
+    ROOT_DIR,
+    "data/typescript/expect_backend.ts")
+JAVASCRIPT_BACKEND_OUTPUT = os.path.join(
+    ROOT_DIR,
+    "tests/javascript/generated_backend.js")
+JAVASCRIPT_BACKEND_EXPECT_FILE = os.path.join(
+    ROOT_DIR,
+    "data/javascript/expect_backend.js")
 
 
 def compare_file(expect_file: str, result_file: str):

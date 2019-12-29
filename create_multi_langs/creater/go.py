@@ -1,6 +1,13 @@
 from __future__ import absolute_import
 from create_multi_langs.creater.base import CreaterBase
 import os
+import re
+from subprocess import call
+from typing import NoReturn
+
+
+def const_upper(string: str, non_en_repl='_') -> str:
+    return re.sub(r'[^a-z]', non_en_repl, string).upper()
 
 
 class CreaterGo(CreaterBase):
@@ -20,16 +27,50 @@ class CreaterGo(CreaterBase):
         return creater
 
     @property
-    def lang_data_contents(self) -> str:
-        return ""
+    def lang_data_define(self) -> str:
+        return self._templater.key_value_lines(
+            self._reader.field_notes(),
+            double_quote_key=False,
+            double_quote_value=False,
+            split_punctuation=" string // ",
+            end_punctuation="",
+            n_indent=1,
+        )
 
     @property
     def lang_code_contents(self) -> str:
-        return ""
+        data = {}
+        for lang_code in self._reader.lang_codes():
+            data[const_upper(lang_code, non_en_repl="")] = lang_code
+        return self._templater.key_value_lines(
+            data,
+            double_quote_key=False,
+            double_quote_value=True,
+            split_punctuation=" LangCode = ",
+            end_punctuation="",
+            n_indent=1,
+        )
 
     @property
     def init_contents(self) -> str:
-        return ""
+        lines = []
+        for lang_code in self._reader.lang_codes():
+            head = '{spaces}table[{lang_code}] = LangData'.format(
+                spaces=self._templater.spaces(1),
+                lang_code=const_upper(lang_code, non_en_repl=""),
+            ) + '{'
+            lines.append(head)
+            data = self._templater.key_value_lines(
+                self._reader.field_values(lang_code),
+                double_quote_key=False,
+                double_quote_value=True,
+                split_punctuation=": ",
+                end_punctuation=",",
+                n_indent=2,
+            )
+            lines.append(data)
+            lines.append(self._templater.spaces(1) + '}')
+        return '\n'.join(lines)
 
     @property
     def package_name(self) -> str:
@@ -37,8 +78,13 @@ class CreaterGo(CreaterBase):
 
     def render_data(self) -> dict:
         return {
-            "lang_data_contents": self.lang_data_contents,
+            "lang_data_define": self.lang_data_define,
             "lang_code_contents": self.lang_code_contents,
             "init_contents": self.init_contents,
             "package_name": self.package_name,
         }
+
+    def __call__(self) -> NoReturn:
+        super().__call__()
+        return_code = call(["gofmt", "-w", self._output])
+        assert return_code == 0

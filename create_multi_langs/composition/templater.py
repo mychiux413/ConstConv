@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import jinja2
+from typing import List
 
 
 class Templater:
@@ -8,14 +9,19 @@ class Templater:
                  comment_head_prefix: str,
                  comment_tail_prefix: str,
                  comment_mid_prefix: str,
-                 template_path: str):
+                 template_path: str,
+                 n_spaces_per_indent: int = 4):
         self._comment_head_prefix: str = comment_head_prefix
         self._comment_tail_prefix: str = comment_tail_prefix
         self._comment_mid_prefix: str = comment_mid_prefix
         self._template_content = open(template_path, 'r').read()
+        self._spaces_per_indent = " " * n_spaces_per_indent
 
-    def comment(self, contents: str, n_spaces: int = 0) -> str:
-        spaces = " " * n_spaces
+    def spaces(self, n_indent: int) -> str:
+        return self._spaces_per_indent * n_indent
+
+    def comment(self, contents: str, n_indent: int = 0) -> str:
+        spaces = self.spaces(n_indent)
         out = ""
         out += spaces + self._comment_head_prefix + "\n"
         for content in contents.split("\n"):
@@ -27,23 +33,27 @@ class Templater:
     def key_value_lines(self,
                         key_values: dict,
                         double_quote_key: bool = False,
+                        double_quote_value: bool = False,
                         split_punctuation: str = ": ",
                         end_punctuation: str = "",
-                        n_spaces: int = 0) -> str:
-        spaces = " " * n_spaces
-        double_quotes = '"' if double_quote_key else ''
-        out = ""
+                        n_indent: int = 0) -> str:
+        spaces = self.spaces(n_indent)
+        keys_double_quotes = '"' if double_quote_key else ''
+        value_double_quotes = '"' if double_quote_value else ''
+        lines: List[str] = []
         for key, value in key_values.items():
-            out += '''{spaces}{double_quotes}{key}{double_quotes}{split_punctuation}"{value}"{end_punctuation}\n'''.format(  # noqa: E501
+            line = '''{spaces}{keys_double_quotes}{key}{keys_double_quotes}{split_punctuation}{value_double_quotes}{value}{value_double_quotes}{end_punctuation}'''.format(  # noqa: E501
                 spaces=spaces,
-                double_quotes=double_quotes,
+                keys_double_quotes=keys_double_quotes,
                 key=key,
                 split_punctuation=split_punctuation,
+                value_double_quotes=value_double_quotes,
                 value=value,
                 end_punctuation=end_punctuation
             )
+            lines.append(line)
 
-        return out
+        return '\n'.join(lines)
 
     def render(self, data: dict) -> str:
         t = jinja2.Template(self._template_content)
