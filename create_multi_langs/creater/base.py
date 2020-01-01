@@ -28,5 +28,6 @@ class CreaterBase:
 
     def __call__(self) -> NoReturn:
         file_content = self.render()
+        print('Generate Script at {}...'.format(self._output))
         with open(self._output, 'w+', encoding='utf8') as f:
             f.write(file_content)
