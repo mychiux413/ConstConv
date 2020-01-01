@@ -72,14 +72,6 @@ class CreaterGo(CreaterBase):
     def package_name(self) -> str:
         return os.path.splitext(os.path.basename(self._output))[0]
 
-    def render_data(self) -> dict:
-        return {
-            "lang_data_define": self.lang_data_define,
-            "lang_code_contents": self.lang_code_contents,
-            "init_contents": self.init_contents,
-            "package_name": self.package_name,
-        }
-
     def __call__(self) -> NoReturn:
         super().__call__()
         return_code = call(["gofmt", "-w", self._output])

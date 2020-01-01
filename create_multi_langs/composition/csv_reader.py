@@ -40,4 +40,4 @@ class CSVReader:
         return out
 
     def default_lang_code(self) -> str:
-        return ""
+        return self.lang_codes()[0]

@@ -78,11 +78,3 @@ class CreaterPythonTyping(CreaterBase):
                 'return self._data["{}"]'.format(field)
             outs.append(out)
         return '\n\n'.join(outs) + '\n'
-
-    def render_data(self) -> dict:
-        return {
-            'dict_contents': self.dict_contents,
-            'lang_code_constants': self.lang_code_constants,
-            'valid_lang_codes': self.valid_lang_codes,
-            'properties': self.properties,
-        }
