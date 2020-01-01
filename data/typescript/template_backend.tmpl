@@ -1,0 +1,28 @@
+interface LangData {
+{{ lang_data_define }}
+}
+
+type LangCode = {{ lang_code_define }}
+
+type LangTable = {
+    [code in LangCode]: LangData
+}
+
+const table: LangTable = {
+{{ lang_table_contents }}
+}
+
+export class MultiLangs {
+    private data: LangData
+    constructor(langCode: LangCode) {
+        this.setLang(langCode)
+    }
+    setLang = (langCode: LangCode): void => {
+        if (!(langCode in table)) {
+            console.error(`language code ${langCode} doesn't exists in Language Table.`)
+            return
+        }
+        this.data = table[langCode]
+    }
+{{ multi_langs_properties }}
+}

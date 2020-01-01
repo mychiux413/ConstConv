@@ -54,4 +54,3 @@ export class MultiLangs {
         return this.data.Hello
     }
 }
-

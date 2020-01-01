@@ -1,8 +1,8 @@
 from __future__ import absolute_import
-from create_multi_langs.creater.base import CreaterBase
+from create_multi_langs.creater.typescript_frontend import CreaterTypeScriptFrontEnd  # noqa: E501
 
 
-class CreaterTypeScriptBackEnd(CreaterBase):
+class CreaterTypeScriptBackEnd(CreaterTypeScriptFrontEnd):
 
     @staticmethod
     def from_csv_file(csv_file: str, output_code_file: str):
@@ -18,5 +18,21 @@ class CreaterTypeScriptBackEnd(CreaterBase):
         )
         return creater
 
-    def render_data(self) -> dict:
-        return {}
+    @property
+    def multi_langs_properties(self) -> str:
+        outs = []
+        for field, note in self._reader.field_notes().items():
+            out = ''
+            out += self._templater.spaces(1) + '/**\n'
+            out += self._templater.spaces(1) + ' * {}\n'.format(
+                note
+            )
+            out += self._templater.spaces(1) + ' */\n'
+            out += self._templater.spaces(1) + 'get {}()'.format(
+                field) + ': string {\n'
+            out += self._templater.spaces(2) + 'return this.data.{}\n'.format(
+                field)
+            out += self._templater.spaces(1) + '}'
+            outs.append(out)
+        return '\n'.join(outs)
+
