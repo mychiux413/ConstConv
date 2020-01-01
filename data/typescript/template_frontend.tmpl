@@ -1,0 +1,37 @@
+interface LangData {
+{{ lang_data_define }}
+}
+
+type LangCode = {{ lang_code_define }}
+
+type LangTable = {
+    [code in LangCode]: LangData
+}
+
+const table: LangTable = {
+{{ lang_table_contents }}
+}
+
+let target = table[{{ default_lang }}]
+
+
+class MultiLangs {
+{{ multi_langs_properties }}
+}
+
+/**
+ * @param langCode  set to change instance `ml`'s language 
+ */
+export const setLang = (langCode: LangCode): void => {
+    if (!(langCode in table)) {
+        console.error(`language code ${langCode} doesn't exists in Language Table.`)
+        return
+    }
+    target = table[langCode]
+}
+
+/**
+ * use instance `ml` to get language content which you've set from csv file before
+ * use `setLang(<LanguageCode>)` to change the language you want
+ */
+export const ml = new MultiLangs()
