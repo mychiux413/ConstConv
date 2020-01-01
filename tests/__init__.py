@@ -18,7 +18,7 @@ TYPESCRIPT_FRONTEND_EXPECT_FILE = os.path.join(
     "data/typescript/expect_frontend.ts")
 JAVASCRIPT_FRONTEND_OUTPUT = os.path.join(
     ROOT_DIR,
-    "tests/javascript/generated_frontend.js")
+    "tests/javascript/generated_frontend.mjs")
 JAVASCRIPT_FRONTEND_EXPECT_FILE = os.path.join(
     ROOT_DIR,
     "data/javascript/expect_frontend.js")
@@ -30,7 +30,7 @@ TYPESCRIPT_BACKEND_EXPECT_FILE = os.path.join(
     "data/typescript/expect_backend.ts")
 JAVASCRIPT_BACKEND_OUTPUT = os.path.join(
     ROOT_DIR,
-    "tests/javascript/generated_backend.js")
+    "tests/javascript/generated_backend.mjs")
 JAVASCRIPT_BACKEND_EXPECT_FILE = os.path.join(
     ROOT_DIR,
     "data/javascript/expect_backend.js")
