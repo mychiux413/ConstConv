@@ -1,0 +1,28 @@
+_table = {
+{{ dict_contents }}
+}
+
+{{ lang_code_constants }}
+
+
+class MultiLangs:
+
+    def __init__(self, lang_code):
+        """Create MultiLangs with specified `language code`
+        ### Valid Lang Codes
+{{ valid_lang_codes }}
+        """
+        self.set_lang(lang_code)
+
+    def set_lang(self, lang_code):
+        """set_lang set language code inplace"""
+        new_data = _table.get(lang_code)
+        if new_data is None:
+            print("[error] invalid lang code: {}".format(lang_code))
+            print("lang code must be in: {}".format(
+                _table.keys()
+            ))
+            return
+        self._data = new_data
+
+{{ properties }}

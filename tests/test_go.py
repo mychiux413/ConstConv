@@ -1,14 +1,12 @@
 from __future__ import absolute_import
 from create_multi_langs.creater.go import CreaterGo
-from . import CSV_FILE, GO_OUTPUT, GO_EXPECT_FILE, compare_file, ROOT_DIR
+from . import GO_OUTPUT, GO_EXPECT_FILE, ROOT_DIR, create_and_compare
 import os
 from subprocess import call
 
 
 def test_create_go_file():
-    cgo = CreaterGo.from_csv_file(CSV_FILE, GO_OUTPUT)
-    cgo()
-    compare_file(GO_EXPECT_FILE, GO_OUTPUT)
+    create_and_compare(CreaterGo, GO_OUTPUT, GO_EXPECT_FILE)
 
     print("go test ...")
     os.chdir("tests/go")
