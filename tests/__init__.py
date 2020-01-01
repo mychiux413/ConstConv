@@ -8,7 +8,7 @@ PYTHON_OUTPUT = os.path.join(ROOT_DIR, "tests/python/generated.py")
 PYTHON_EXPECT_FILE = os.path.join(ROOT_DIR, "data/python/expect.py")
 PYTHON_TYPING_OUTPUT = os.path.join(
     ROOT_DIR, "tests/python/generated_typing.py")
-PYTHON_EXPECT_TYPING_FILE = os.path.join(
+PYTHON_TYPING_EXPECT_FILE = os.path.join(
     ROOT_DIR, "data/python/expect_typing.py")
 TYPESCRIPT_FRONTEND_OUTPUT = os.path.join(
     ROOT_DIR,

@@ -1,20 +1,10 @@
 from typing import Dict, NoReturn
 
 _table: Dict[str, Dict[str, str]] = {
-    "zh-tw": {
-        "select_lang": "繁體中文",
-        "login": "登入",
-        "hello": "您好,歡迎",
-    },
-    "en": {
-        "select_lang": "English",
-        "login": "Login",
-        "hello": "Hello,Welcome",
-    },
+{{ dict_contents }}
 }
 
-ZH_TW = "zh-tw"
-EN = "en"
+{{ lang_code_constants }}
 
 
 class MultiLangs:
@@ -22,8 +12,7 @@ class MultiLangs:
     def __init__(self, lang_code: str):
         """Create MultiLangs with specified `language code`
         ### Valid Lang Codes
-        - "zh-tw"
-        - "en"
+{{ valid_lang_codes }}
         """
         self.set_lang(lang_code)
 
@@ -38,17 +27,4 @@ class MultiLangs:
             return
         self._data = new_data
 
-    @property
-    def select_lang(self) -> str:
-        """# select language"""
-        return self._data["select_lang"]
-
-    @property
-    def login(self) -> str:
-        """used for login button"""
-        return self._data["login"]
-
-    @property
-    def hello(self) -> str:
-        """pop up greeting message"""
-        return self._data["hello"]
+{{ properties }}
