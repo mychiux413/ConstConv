@@ -21,3 +21,7 @@ ts-node tests/typescript/generated_backend.test.ts && rm tests/typescript/genera
 
 create-multi-langs --from_csv data/valid_format.csv --to_file tests/javascript/generated_frontend.mjs && \
 node --experimental-modules tests/javascript/generated_frontend.test.mjs && rm tests/javascript/generated_frontend.mjs
+
+create-multi-langs --from_csv data/valid_format.csv --to_file tests/javascript/generated_backend.mjs --backend && \
+node --experimental-modules tests/javascript/generated_backend.test.mjs && rm tests/javascript/generated_backend.mjs
+
