@@ -71,7 +71,8 @@ class CreaterPythonTyping(CreaterBase):
         for field, note in self._reader.field_notes().items():
             out = ""
             out += self._templater.spaces(1) + "@property\n"
-            out += self._templater.spaces(1) + "def {}(self) -> str:\n".format(field)
+            out += self._templater.spaces(1) + \
+                "def {}(self) -> str:\n".format(field)
             out += self._templater.spaces(2) + '"' * 3 + note + '"' * 3 + '\n'
             out += self._templater.spaces(2) + \
                 'return self._data["{}"]'.format(field)
