@@ -12,7 +12,7 @@ import time
 import os
 import sys
 
-VALID_EXTS = ['.py', '.go', '.ts', '.js']
+VALID_EXTS = ['.py', '.go', '.ts', '.js', '.mjs']
 
 
 def main():
@@ -83,14 +83,14 @@ def _generate(args: argparse.Namespace):
             from_csv_file = CreaterTypeScriptBackEnd.from_csv_file
         else:
             from_csv_file = CreaterTypeScriptFrontEnd.from_csv_file
-    elif to_file.endswith('.js'):
+    elif to_file.endswith(('.js', '.mjs')):
         if args.backend:
             from_csv_file = CreaterJavaScriptBackEnd.from_csv_file
         else:
             from_csv_file = CreaterJavaScriptFrontEnd.from_csv_file
     else:
         raise argparse.ArgumentError(
-            "must set to_file as .go .py .ts or .js, but got {}".format(
+            "must set to_file as .go .py .ts .js or .mjs, but got {}".format(
                 to_file
             ))
     creater = from_csv_file(args.from_csv, to_file)

@@ -18,3 +18,6 @@ ts-node tests/typescript/generated_frontend.test.ts && rm tests/typescript/gener
 
 create-multi-langs --from_csv data/valid_format.csv --to_file tests/typescript/generated_backend.ts --backend && \
 ts-node tests/typescript/generated_backend.test.ts && rm tests/typescript/generated_backend.ts
+
+create-multi-langs --from_csv data/valid_format.csv --to_file tests/javascript/generated_frontend.mjs && \
+node --experimental-modules tests/javascript/generated_frontend.test.mjs && rm tests/javascript/generated_frontend.mjs
