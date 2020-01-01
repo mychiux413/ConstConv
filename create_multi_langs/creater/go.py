@@ -1,13 +1,9 @@
 from __future__ import absolute_import
 from create_multi_langs.creater.base import CreaterBase
 import os
-import re
 from subprocess import call
 from typing import NoReturn
-
-
-def const_upper(string: str, non_en_repl='_') -> str:
-    return re.sub(r'[^a-z]', non_en_repl, string).upper()
+from . import to_upper
 
 
 class CreaterGo(CreaterBase):
@@ -41,7 +37,7 @@ class CreaterGo(CreaterBase):
     def lang_code_contents(self) -> str:
         data = {}
         for lang_code in self._reader.lang_codes():
-            data[const_upper(lang_code, non_en_repl="")] = lang_code
+            data[to_upper(lang_code, non_en_repl="")] = lang_code
         return self._templater.key_value_lines(
             data,
             double_quote_key=False,
@@ -57,7 +53,7 @@ class CreaterGo(CreaterBase):
         for lang_code in self._reader.lang_codes():
             head = '{spaces}table[{lang_code}] = LangData'.format(
                 spaces=self._templater.spaces(1),
-                lang_code=const_upper(lang_code, non_en_repl=""),
+                lang_code=to_upper(lang_code, non_en_repl=""),
             ) + '{'
             lines.append(head)
             data = self._templater.key_value_lines(

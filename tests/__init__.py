@@ -53,3 +53,9 @@ def compare_file(expect_file: str, result_file: str):
             break
 
     assert not err, err
+
+
+def create_and_compare(creater_class, output_file, expect_file):
+    creater = creater_class.from_csv_file(CSV_FILE, output_file)
+    creater()
+    compare_file(expect_file, output_file)
