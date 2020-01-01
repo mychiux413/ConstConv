@@ -35,4 +35,3 @@ class CreaterTypeScriptBackEnd(CreaterTypeScriptFrontEnd):
             out += self._templater.spaces(1) + '}'
             outs.append(out)
         return '\n'.join(outs)
-
