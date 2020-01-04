@@ -6,17 +6,15 @@ from . import to_upper, to_lower, split_camelcase
 class CreaterPythonTyping(CreaterBase):
 
     @staticmethod
-    def from_csv_file(csv_file: str, output_code_file: str):
+    def from_csv_file(csv_file: str, output_code_file: str, sep=','):
         assert output_code_file.endswith(".py"), \
             "python filename must ends with .py"
         creater = CreaterPythonTyping(
             csv_file,
             output_code_file,
-            comment_head_prefix='"""',
-            comment_tail_prefix="",
-            comment_mid_prefix='"""',
             template_path="data/python/template_typing.tmpl",
             field_wrapper=lambda x: to_lower(split_camelcase(x)),
+            sep=sep,
         )
         return creater
 

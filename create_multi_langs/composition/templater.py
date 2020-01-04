@@ -6,14 +6,8 @@ from typing import List
 class Templater:
 
     def __init__(self,
-                 comment_head_prefix: str,
-                 comment_tail_prefix: str,
-                 comment_mid_prefix: str,
                  template_path: str,
                  n_spaces_per_indent: int = 4):
-        self._comment_head_prefix: str = comment_head_prefix
-        self._comment_tail_prefix: str = comment_tail_prefix
-        self._comment_mid_prefix: str = comment_mid_prefix
         self._template_content = open(template_path, 'r').read()
         self._spaces_per_indent = " " * n_spaces_per_indent
 

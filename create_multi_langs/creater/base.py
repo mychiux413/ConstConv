@@ -8,17 +8,12 @@ import inspect
 
 class CreaterBase:
     def __init__(self, csv_file: str, output_code_file: str,
-                 comment_head_prefix: str,
-                 comment_tail_prefix: str,
-                 comment_mid_prefix: str,
                  template_path: str,
-                 field_wrapper=lambda x: x):
-        self._reader = CSVReader(csv_file, field_wrapper)
+                 field_wrapper=lambda x: x,
+                 sep=','):
+        self._reader = CSVReader(csv_file, field_wrapper, sep)
         self._output = output_code_file
         self._templater = Templater(
-            comment_head_prefix,
-            comment_tail_prefix,
-            comment_mid_prefix,
             template_path,
         )
 

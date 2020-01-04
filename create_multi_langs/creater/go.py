@@ -9,16 +9,14 @@ from . import to_upper
 class CreaterGo(CreaterBase):
 
     @staticmethod
-    def from_csv_file(csv_file: str, output_code_file: str):
+    def from_csv_file(csv_file: str, output_code_file: str, sep=','):
         assert output_code_file.endswith(".go"), \
             "go filename must ends with .go"
         creater = CreaterGo(
             csv_file,
             output_code_file,
-            comment_head_prefix="",
-            comment_tail_prefix="",
-            comment_mid_prefix="// ",
-            template_path="data/go/template.tmpl"
+            template_path="data/go/template.tmpl",
+            sep=sep,
         )
         return creater
 
