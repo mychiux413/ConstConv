@@ -7,8 +7,8 @@ NOTE = "_note"
 
 
 class CSVReader:
-    def __init__(self, csv_file: str, field_wrapper=lambda x: x):
-        self._df: pd.DataFrame = pd.read_csv(csv_file)
+    def __init__(self, csv_file: str, field_wrapper=lambda x: x, sep=','):
+        self._df: pd.DataFrame = pd.read_csv(csv_file, sep=sep)
         self._PRESERVED_COLUMN_NAMES: List[str] = [FIELD, NOTE]
         self._field_wrapper = field_wrapper
 

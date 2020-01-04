@@ -5,16 +5,18 @@ from create_multi_langs.creater.base import CreaterBase
 class CreaterTypeScriptFrontEnd(CreaterBase):
 
     @staticmethod
-    def from_csv_file(csv_file: str, output_code_file: str):
+    def from_csv_file(csv_file: str,
+                      output_code_file: str,
+                      naming_rule='lcc',
+                      sep=','):
         assert output_code_file.endswith(".ts"), \
             "typescript filename must ends with .ts"
         creater = CreaterTypeScriptFrontEnd(
             csv_file,
             output_code_file,
-            comment_head_prefix="/ **",
-            comment_tail_prefix=" * ",
-            comment_mid_prefix=" */",
-            template_path="data/typescript/template_frontend.tmpl"
+            template_path="data/typescript/template_frontend.tmpl",
+            naming_rule=naming_rule,
+            sep=sep,
         )
         return creater
 

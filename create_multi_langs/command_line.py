@@ -28,6 +28,24 @@ def main():
                         help='Default is generate python script without typing')  # noqa: E501
     parser.add_argument('--watch', action='store_true',
                         help='Watch csv file changed')
+    parser.add_argument('--sep', default=',', type=str,
+                        help='CSV seperated punctuation')
+
+    naming_help = """specify your property style,
+    [valid options]
+    `ucc`(UpperCamelCase),
+    `lcc`(lowerCamelCase),
+    `upper`(ALL_UPERCASE_UNDERSCORE),
+    `lower`(all_lowercase_underscore)
+
+    [default setting]
+    Go: `ucc`,
+    Python: `lower`,
+    Typescript: `lcc`,
+    javascript: `lcc`
+    """
+    parser.add_argument('--naming_rule', type=str,
+                        help=naming_help)
     args = parser.parse_args()
 
     args.from_csv = os.path.abspath(args.from_csv)
@@ -93,7 +111,7 @@ def _generate(args: argparse.Namespace):
             "must set to_file as .go .py .ts .js or .mjs, but got {}".format(
                 to_file
             ))
-    creater = from_csv_file(args.from_csv, to_file)
+    creater = from_csv_file(args.from_csv, to_file, sep=args.sep)
     creater()
 
 

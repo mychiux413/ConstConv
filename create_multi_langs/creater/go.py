@@ -3,22 +3,26 @@ from create_multi_langs.creater.base import CreaterBase
 import os
 from subprocess import call
 from typing import NoReturn
-from . import to_upper
+from . import to_upper_without_underscore
 
 
 class CreaterGo(CreaterBase):
 
     @staticmethod
-    def from_csv_file(csv_file: str, output_code_file: str):
+    def from_csv_file(csv_file: str,
+                      output_code_file: str,
+                      naming_rule='ucc',
+                      sep=','):
         assert output_code_file.endswith(".go"), \
             "go filename must ends with .go"
+        if naming_rule != "ucc":
+            print('[WARNING] the naming rule: `{}` might conflict to go format'.format(naming_rule))  # noqa: E501
         creater = CreaterGo(
             csv_file,
             output_code_file,
-            comment_head_prefix="",
-            comment_tail_prefix="",
-            comment_mid_prefix="// ",
-            template_path="data/go/template.tmpl"
+            template_path="data/go/template.tmpl",
+            naming_rule=naming_rule,
+            sep=sep,
         )
         return creater
 
@@ -37,7 +41,7 @@ class CreaterGo(CreaterBase):
     def lang_code_contents(self) -> str:
         data = {}
         for lang_code in self._reader.lang_codes():
-            data[to_upper(lang_code, non_en_repl="")] = lang_code
+            data[to_upper_without_underscore(lang_code)] = lang_code
         return self._templater.key_value_lines(
             data,
             double_quote_key=False,
@@ -53,7 +57,7 @@ class CreaterGo(CreaterBase):
         for lang_code in self._reader.lang_codes():
             head = '{spaces}table[{lang_code}] = LangData'.format(
                 spaces=self._templater.spaces(1),
-                lang_code=to_upper(lang_code, non_en_repl=""),
+                lang_code=to_upper_without_underscore(lang_code),
             ) + '{'
             lines.append(head)
             data = self._templater.key_value_lines(

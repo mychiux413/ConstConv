@@ -1,4 +1,5 @@
 import re
+from typing import List
 
 
 def replace_non_en(string: str, non_en_repl='_', ignore_case=True) -> str:
@@ -9,27 +10,46 @@ def replace_non_en(string: str, non_en_repl='_', ignore_case=True) -> str:
     return string
 
 
-def to_upper(string: str, non_en_repl='_', ignore_case=True) -> str:
-    return replace_non_en(string, non_en_repl, ignore_case).upper()
+def decompose_field(string: str) -> List[str]:
+    string = re.sub(r'^([^a-z]*)(.*)([^a-z]*)$',
+                    r'\2',
+                    string,
+                    flags=re.IGNORECASE)
+    if string.find('_') > -1:
+        return string.split('_')
+
+    if string.find('-') > -1:
+        return string.split('-')
+
+    if string.lower() == string:
+        return [string]
+
+    if string.upper() == string:
+        return [string]
+
+    return re.sub(r'([a-z])([A-Z])', r'\1_\2', string).split('_')
 
 
-def split_camelcase(string: str, insert_between: str = '_') -> str:
-    if not is_camelcase(string):
-        return string
-    return re.sub(r'([a-z])([A-Z])', r'\1' + insert_between + r'\2', string)
+def to_upper(string: str) -> str:
+    strings = decompose_field(string)
+    return '_'.join([s.upper() for s in strings])
 
 
-def to_lower(string: str, non_en_repl='_', ignore_case=True) -> str:
-    return replace_non_en(string, non_en_repl, ignore_case).lower()
+def to_upper_without_underscore(string: str) -> str:
+    strings = decompose_field(string)
+    return ''.join([s.upper() for s in strings])
 
 
-def is_camelcase(string: str) -> bool:
-    return string.lower() != string and string.upper() != string
+def to_lower(string: str) -> str:
+    strings = decompose_field(string)
+    return '_'.join([s.lower() for s in strings])
 
 
-def is_const(string: str) -> bool:
-    return string.upper() == string
+def to_ucc(string: str) -> str:
+    strings = decompose_field(string)
+    return ''.join([s[0].upper() + s[1:] for s in strings])
 
 
-def is_lower(string: str) -> bool:
-    return string.lower() == string
+def to_lcc(string: str) -> str:
+    string = to_ucc(string)
+    return string[0].lower() + string[1:]

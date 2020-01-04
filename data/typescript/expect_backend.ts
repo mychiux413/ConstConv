@@ -1,7 +1,7 @@
 interface LangData {
-    SelectLang: string
-    Login: string
-    Hello: string
+    selectLang: string
+    login: string
+    hello: string
 }
 
 type LangCode = "zh-tw" | "en"
@@ -12,14 +12,14 @@ type LangTable = {
 
 const table: LangTable = {
     "zh-tw": {
-        SelectLang: "繁體中文",
-        Login: "登入",
-        Hello: "您好,歡迎",
+        selectLang: "繁體中文",
+        login: "登入",
+        hello: "您好,歡迎",
     },
     "en": {
-        SelectLang: "English",
-        Login: "Login",
-        Hello: "Hello,Welcome",
+        selectLang: "English",
+        login: "Login",
+        hello: "Hello,Welcome",
     },
 }
 
@@ -38,19 +38,19 @@ export class MultiLangs {
     /**
      * # select language
      */
-    get SelectLang(): string {
-        return this.data.SelectLang
+    get selectLang(): string {
+        return this.data.selectLang
     }
     /**
      * used for login button
      */
-    get Login(): string {
-        return this.data.Login
+    get login(): string {
+        return this.data.login
     }
     /**
      * pop up greeting message
      */
-    get Hello(): string {
-        return this.data.Hello
+    get hello(): string {
+        return this.data.hello
     }
 }
