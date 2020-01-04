@@ -9,13 +9,13 @@ const compare = (expect_value, actual_value) => {
 
 const ml = new MultiLangs("zh-tw")
 let errs = ""
-errs += compare(ml.Hello, "您好,歡迎")
-errs += compare(ml.Login, "登入")
-errs += compare(ml.SelectLang, "繁體中文")
+errs += compare(ml.hello, "您好,歡迎")
+errs += compare(ml.login, "登入")
+errs += compare(ml.selectLang, "繁體中文")
 ml.setLang("en")
-errs += compare(ml.Hello, "Hello,Welcome")
-errs += compare(ml.Login, "Login")
-errs += compare(ml.SelectLang, "English")
+errs += compare(ml.hello, "Hello,Welcome")
+errs += compare(ml.login, "Login")
+errs += compare(ml.selectLang, "English")
 
 if (errs !== "") {
     throw errs

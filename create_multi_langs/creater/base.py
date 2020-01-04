@@ -4,13 +4,28 @@ from create_multi_langs.composition.csv_reader import CSVReader
 from create_multi_langs.composition.templater import Templater
 from typing import NoReturn
 import inspect
+from . import to_lcc, to_ucc, to_lower, to_upper
+
+NAMING_RULES = {
+    'lcc': to_lcc,
+    'ucc': to_ucc,
+    'lower': to_lower,
+    'upper': to_upper,
+}
 
 
 class CreaterBase:
     def __init__(self, csv_file: str, output_code_file: str,
                  template_path: str,
-                 field_wrapper=lambda x: x,
+                 naming_rule: str,
                  sep=','):
+        naming_rule = naming_rule.strip().lower()
+        if naming_rule not in NAMING_RULES:
+            raise ValueError("invalid naming rule: {}, must in: {}".format(
+                naming_rule, NAMING_RULES
+            ))
+
+        field_wrapper = NAMING_RULES[naming_rule]
         self._reader = CSVReader(csv_file, field_wrapper, sep)
         self._output = output_code_file
         self._templater = Templater(

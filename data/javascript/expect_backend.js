@@ -1,13 +1,13 @@
 const table = {
     "zh-tw": {
-        SelectLang: "繁體中文",
-        Login: "登入",
-        Hello: "您好,歡迎",
+        selectLang: "繁體中文",
+        login: "登入",
+        hello: "您好,歡迎",
     },
     "en": {
-        SelectLang: "English",
-        Login: "Login",
-        Hello: "Hello,Welcome",
+        selectLang: "English",
+        login: "Login",
+        hello: "Hello,Welcome",
     },
 }
 
@@ -25,19 +25,19 @@ export class MultiLangs {
     /**
      * # select language
      */
-    get SelectLang() {
-        return this.data.SelectLang
+    get selectLang() {
+        return this.data.selectLang
     }
     /**
      * used for login button
      */
-    get Login() {
-        return this.data.Login
+    get login() {
+        return this.data.login
     }
     /**
      * pop up greeting message
      */
-    get Hello() {
-        return this.data.Hello
+    get hello() {
+        return this.data.hello
     }
 }

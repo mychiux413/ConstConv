@@ -1,19 +1,22 @@
 from __future__ import absolute_import
 from create_multi_langs.creater.base import CreaterBase
-from . import to_upper, to_lower, split_camelcase
+from . import to_upper
 
 
 class CreaterPythonTyping(CreaterBase):
 
     @staticmethod
-    def from_csv_file(csv_file: str, output_code_file: str, sep=','):
+    def from_csv_file(csv_file: str,
+                      output_code_file: str,
+                      naming_rule='lower',
+                      sep=','):
         assert output_code_file.endswith(".py"), \
             "python filename must ends with .py"
         creater = CreaterPythonTyping(
             csv_file,
             output_code_file,
             template_path="data/python/template_typing.tmpl",
-            field_wrapper=lambda x: to_lower(split_camelcase(x)),
+            naming_rule=naming_rule,
             sep=sep,
         )
         return creater
@@ -40,7 +43,7 @@ class CreaterPythonTyping(CreaterBase):
     def lang_code_constants(self) -> str:
         data = {}
         for lang_code in self._reader.lang_codes():
-            data[to_upper(lang_code, non_en_repl='_')] = lang_code
+            data[to_upper(lang_code)] = lang_code
         return self._templater.key_value_lines(
             key_values=data,
             double_quote_key=False,

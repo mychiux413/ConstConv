@@ -5,13 +5,17 @@ from create_multi_langs.creater.javascript_frontend import CreaterJavaScriptFron
 class CreaterJavaScriptBackEnd(CreaterJavaScriptFrontEnd):
 
     @staticmethod
-    def from_csv_file(csv_file: str, output_code_file: str, sep=','):
+    def from_csv_file(csv_file: str,
+                      output_code_file: str,
+                      naming_rule='lcc',
+                      sep=','):
         assert output_code_file.endswith((".js", ".mjs")), \
             "javascript filename must ends with .js or .mjs"
         creater = CreaterJavaScriptBackEnd(
             csv_file,
             output_code_file,
             template_path="data/javascript/template_backend.tmpl",
+            naming_rule=naming_rule,
             sep=sep,
         )
         return creater
