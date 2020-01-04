@@ -19,17 +19,18 @@ VALID_EXTS = ['.py', '.go', '.ts', '.js', '.mjs']
 def main():
     parser = argparse.ArgumentParser(
         description='Running DeepSpeech inference.')
-    parser.add_argument('--from_csv', required=True,
+    parser.add_argument(dest='from_csv',
                         type=str, help='Generate script from csv')
-    parser.add_argument('--to_file', required=True,
-                        type=str, help='generate file path')
-    parser.add_argument('--backend', action='store_true',
+    parser.add_argument(dest='to_file',
+                        type=str,
+                        help='generate file path, support ext: .go .py .js .ts .mjs')  # noqa: E501
+    parser.add_argument('--backend', '-b', action='store_true',
                         help='Default is generate frontend script for js/ts')
-    parser.add_argument('--py_typing', action='store_true',
+    parser.add_argument('--py_typing', '-t', action='store_true',
                         help='Default is generate python script without typing')  # noqa: E501
-    parser.add_argument('--watch', action='store_true',
+    parser.add_argument('--watch', '-w', action='store_true',
                         help='Watch csv file changed')
-    parser.add_argument('--sep', default=',', type=str,
+    parser.add_argument('--sep', '-s', default=',', type=str,
                         help='CSV seperated punctuation')
 
     naming_help = """specify your property style,
@@ -45,7 +46,7 @@ def main():
     Typescript: `lcc`,
     javascript: `lcc`
     """
-    parser.add_argument('--naming_rule', type=str,
+    parser.add_argument('--naming_rule', '-n', type=str,
                         help=naming_help)
     args = parser.parse_args()
 
