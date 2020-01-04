@@ -11,6 +11,7 @@ import argparse
 import time
 import os
 import sys
+from functools import partial
 
 VALID_EXTS = ['.py', '.go', '.ts', '.js', '.mjs']
 
@@ -78,8 +79,7 @@ def main():
             sys.exit(0)
 
     if os.path.exists(args.to_file):
-        print('Overwrite (y/n)?')
-        yes_no = input().lower()
+        yes_no = input('Overwrite (y/n)?').lower()
         if yes_no != "y":
             print('Abort program')
             sys.exit(0)
@@ -111,7 +111,12 @@ def _generate(args: argparse.Namespace):
             "must set to_file as .go .py .ts .js or .mjs, but got {}".format(
                 to_file
             ))
-    creater = from_csv_file(args.from_csv, to_file, sep=args.sep)
+    if args.naming_rule:
+        from_csv_file = partial(from_csv_file, naming_rule=args.naming_rule)
+    creater = from_csv_file(
+        args.from_csv,
+        to_file,
+        sep=args.sep)
     creater()
 
 

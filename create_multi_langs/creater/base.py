@@ -22,7 +22,7 @@ class CreaterBase:
         naming_rule = naming_rule.strip().lower()
         if naming_rule not in NAMING_RULES:
             raise ValueError("invalid naming rule: {}, must in: {}".format(
-                naming_rule, NAMING_RULES
+                naming_rule, list(NAMING_RULES.keys())
             ))
 
         field_wrapper = NAMING_RULES[naming_rule]
