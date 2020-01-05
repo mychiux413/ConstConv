@@ -2,43 +2,43 @@
 
 Create-Multi-Langs is a package to create code for multi-lingual sites development, 
 
-### Features
+## Features
 - Use CSV file grid table as translated source data instead of JSON to better manage translations.
 - Output code language support python, go, javascript(ES6), typescript.
 - No more map or dict like so, but use property to get `code intelligence`.
 - Support watching mode for source csv file.
 
-### Install
+## Install
 ```
 pip install create-multi-langs
 ```
 
 
-### Prepare Data
+## Prepare Data
 
 prepare csv data by yourself, liek `valid_format.csv`
-|_field | zh-tw | en | _note |
-|---|---|---|---|
-|SelectLang|繁體中文|English|# select language|
-|Login|登入|Login|used for login button|
-|Hello|您好,歡迎|Hello,Welcome|pop up greeting message|
+| _field | zh-tw | en | _note |
+|--------|-------|----|-------|
+| SelectLang | 繁體中文 | English | # select language |
+| Login | 登入 | Login | used for login button |
+| Hello | 您好,歡迎 | Hello,Welcome | pop up greeting message |
 
-- Use CSV file as source data, a grid table is easier to manage for multi-lingual application.
-- `_field` and `_note` are preserved column names, others column names are considered as language code
-- the values under column `_field`, will become the field name in code file, but constraint the name with common naming rule of which language
-- the values under column `_note`, will become the comment for code docs
+* Use CSV file as source data, a grid table is easier to manage for multi-lingual application.
+* `_field` and `_note` are preserved column names, others column names are considered as language code
+* the values under column `_field`, will become the field name in code file, but constraint the name with common naming rule of which language
+* the values under column `_note`, will become the comment for code docs
 
-### Usage
-```
+## Usage
+```bash
 create-multi-langs valid_format.csv generated.py
 ```
-- support output language: `typscript`, `javascript`, `go`, `python`
-- the generated code is determined by your output filename extension like: .py .go .js .ts .mjs
+* support output language: `typscript`, `javascript`, `go`, `python`
+* the generated code is determined by your output filename extension like: .py .go .js .ts .mjs
 
 
-### Testing
-- import from generated.py
-```
+## Testing
+import from generated.py:
+```python
 from generated import MultiLangs, ZH_TW, EN
 
 ml = MultiLangs(ZH_TW)
@@ -52,8 +52,8 @@ assert ml.login == "Login"
 assert ml.select_lang == "English"
 ```
 
-- import from generated.js
-```
+import from generated.js:
+```javascript
 import { ml, setLang } from "./generated_frontend.mjs"
 
 var compare = function(expect_value, actual_value) {
@@ -77,8 +77,8 @@ if (errs !== "") {
 }
 ```
 
-- import from generated.ts
-```
+import from generated.ts:
+```typescript
 import { ml, setLang } from "./generated_frontend"
 
 const compare = (expect_value: string, actual_value: string): string => {
@@ -102,8 +102,8 @@ if (errs !== "") {
 }
 ```
 
-- import from generated.go
-```
+import from generated.go:
+```go
 package generated
 
 import "testing"
@@ -121,8 +121,8 @@ func TestGenerated(t *testing.T) {
 }
 ```
 
-### Help
-```
+## Help
+```shell
 $ create-multi-langs --help
 usage: create-multi-langs [-h] [--backend] [--py_typing] [--watch] [--sep SEP]
                           [--naming_rule NAMING_RULE]
