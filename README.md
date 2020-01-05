@@ -28,14 +28,16 @@ prepare csv data by yourself, liek `valid_format.csv`
 - the values under column `_field`, will become the field name in code file, but constraint the name with common naming rule of which language
 - the values under column `_note`, will become the comment for code docs
 
-### usage
+### Usage
 ```
 create-multi-langs valid_format.csv generated.py
 ```
 - support output language: `typscript`, `javascript`, `go`, `python`
-- language determined by your output filename extension like: .py .go .js .ts .mjs
+- the generated code is determined by your output filename extension like: .py .go .js .ts .mjs
 
-### import from generated.py
+
+### Testing
+- import from generated.py
 ```
 from generated import MultiLangs, ZH_TW, EN
 
@@ -50,7 +52,76 @@ assert ml.login == "Login"
 assert ml.select_lang == "English"
 ```
 
-### help
+- import from generated.js
+```
+import { ml, setLang } from "./generated_frontend.mjs"
+
+var compare = function(expect_value, actual_value) {
+    if (expect_value !== actual_value) {
+        return `[Error] expect '${expect_value}' but got '${actual_value}'\n`
+    }
+    return ""
+}
+
+var errs = ""
+errs += compare(ml.hello, "您好,歡迎")
+errs += compare(ml.login, "登入")
+errs += compare(ml.selectLang, "繁體中文")
+setLang("en")
+errs += compare(ml.hello, "Hello,Welcome")
+errs += compare(ml.login, "Login")
+errs += compare(ml.selectLang, "English")
+
+if (errs !== "") {
+    throw errs
+}
+```
+
+- import from generated.ts
+```
+import { ml, setLang } from "./generated_frontend"
+
+const compare = (expect_value: string, actual_value: string): string => {
+    if (expect_value !== actual_value) {
+        return `[Error] expect '${expect_value}' but got '${actual_value}'\n`
+    }
+    return ""
+}
+
+let errs = ""
+errs += compare(ml.hello, "您好,歡迎")
+errs += compare(ml.login, "登入")
+errs += compare(ml.selectLang, "繁體中文")
+setLang("en")
+errs += compare(ml.hello, "Hello,Welcome")
+errs += compare(ml.login, "Login")
+errs += compare(ml.selectLang, "English")
+
+if (errs !== "") {
+    throw errs
+}
+```
+
+- import from generated.go
+```
+package generated
+
+import "testing"
+import "github.com/stretchr/testify/assert"
+
+func TestGenerated(t *testing.T) {
+	ml := NewMultiLangs(ZHTW)
+	assert.Equal(t, "您好,歡迎", ml.Hello)
+	assert.Equal(t, "登入", ml.Login)
+	assert.Equal(t, "繁體中文", ml.SelectLang)
+	ml.SetLang(EN)
+	assert.Equal(t, "Hello,Welcome", ml.Hello)
+	assert.Equal(t, "Login", ml.Login)
+	assert.Equal(t, "English", ml.SelectLang)
+}
+```
+
+### Help
 ```
 $ create-multi-langs --help
 usage: create-multi-langs [-h] [--backend] [--py_typing] [--watch] [--sep SEP]
