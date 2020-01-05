@@ -13,7 +13,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='Create-Multi-Langs',
-    version='0.1',
+    version='0.1.1',
     description=description,
     long_description=long_description,
     long_description_content_type="text/markdown",
