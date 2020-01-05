@@ -1,0 +1,17 @@
+const table = {
+{{ lang_table_contents }}
+}
+
+export class MultiLangs {
+    constructor(langCode) {
+        this.setLang(langCode)
+    }
+    setLang(langCode) {
+        if (!(langCode in table)) {
+            console.error(`language code ${langCode} doesn't exists in Language Table.`)
+            return
+        }
+        this.data = table[langCode]
+    }
+{{ multi_langs_properties }}
+}
