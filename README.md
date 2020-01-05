@@ -16,7 +16,8 @@ pip install create-multi-langs
 
 ## Prepare Data
 
-prepare csv data by yourself, liek `valid_format.csv`
+prepare csv data by yourself, liek `valid_format.csv`:
+
 | _field | zh-tw | en | _note |
 |--------|-------|----|-------|
 | SelectLang | 繁體中文 | English | # select language |
